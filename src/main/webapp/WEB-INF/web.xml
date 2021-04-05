@@ -5,6 +5,11 @@
          http://xmlns.jcp.org/xml/ns/javaee/web-app_3_1.xsd"
          version="3.1">
 
+    <error-page>
+        <exception-type>hu.mik.pte.prog4.exception.InvalidISBNException</exception-type>
+        <location>/ErrorPage.jsp</location>
+    </error-page>
+
     <servlet>
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.HomePageServlet</servlet-class>
@@ -30,6 +35,11 @@
         <servlet-class>hu.mik.pte.prog4.servlet.DeleteBookServlet</servlet-class>
     </servlet>
     
+    <servlet>
+        <servlet-name>ModifyCompletionServlet</servlet-name>
+        <servlet-class>hu.mik.pte.prog4.servlet.ModifyCompletionServlet</servlet-class>
+    </servlet>
+    
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/</url-pattern>
@@ -53,6 +63,11 @@
     <servlet-mapping>
         <servlet-name>DeleteBookServlet</servlet-name>
         <url-pattern>delete</url-pattern>
+    </servlet-mapping>
+    
+    <servlet-mapping>
+        <servlet-name>ModifyCompletionServlet</servlet-name>
+        <url-pattern>change</url-pattern>
     </servlet-mapping>
 
 </web-app>

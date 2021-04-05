@@ -35,8 +35,9 @@
                 <th>Progress</th>
                 <th>Completed</th>
                 <th>Rating</th>
-                <th>Delete</th>
+                <th>Change status</th>
                 <th>Edit</th>
+                <th>Delete</th>
             </tr>
             </thead>
             <tbody>
@@ -49,18 +50,38 @@
                     <td><c:out value="${book.genre}"/></td>
                     <td><c:out value="${book.page}"/></td>
                     <td><c:out value="${book.progress}"/></td>
-                    <td><c:out value="${book.completed}"/></td>
+                    <c:choose>
+                        <c:when test="${book.completed==true}">
+                            <td><c:out value="Finished"/></td>
+                        </c:when>
+                        <c:otherwise>
+                            <td><c:out value="In Progress"/></td>
+                        </c:otherwise>
+                    </c:choose>
                     <td><c:out value="${book.rating}"/></td>
                     <td>
-                        <form method="post" action="delete">
+                        <form method="post" action="change">
                             <input type="hidden" name="id" value="${book.id}">
-                            <input type="submit" value="Delete">
+                            <c:choose>
+                                <c:when test="${book.completed==true}">
+                                    <input type="submit" value="Mark as unfinished">
+                                </c:when>
+                                <c:otherwise>
+                                    <input type="submit" value="Mark as finished">
+                                </c:otherwise>
+                            </c:choose>
                         </form>
                     </td>
                     <td>
                         <form method="get" action="edit">
                             <input type="hidden" name="id" value="${book.id}">
                             <input type="submit" value="Edit">
+                        </form>
+                    </td>
+                    <td>
+                        <form method="post" action="delete">
+                            <input type="hidden" name="id" value="${book.id}">
+                            <input type="submit" value="Delete">
                         </form>
                     </td>
                 </tr>

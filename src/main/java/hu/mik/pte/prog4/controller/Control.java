@@ -23,7 +23,7 @@ public class Control {
         dummyData = bookRepository.listAll();
         createDummyData();
         for(Book book : dummyData) {
-            bookService.markCompleted(book);
+            bookService.changeCompletion(book);
         }
     }
 

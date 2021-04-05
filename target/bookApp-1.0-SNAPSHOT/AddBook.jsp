@@ -37,6 +37,9 @@
                     <select name="genre" id="genre">
                         <option value="Fantasy">Fantasy</option>
                         <option value="Horror">Horror</option>
+                        <option value="Adventure">Adventure</option>
+                        <option value="Science">Science</option>
+                        <option value="Art">Art</option>
                     </select>
                 </td>
             </tr>
@@ -61,6 +64,7 @@
                 <td>Rating</td>
                 <td>
                     <select name="rating" id="rating">
+                        <option value="0">0</option>
                         <option value="1">1</option>
                         <option value="2">2</option>
                         <option value="3">3</option>

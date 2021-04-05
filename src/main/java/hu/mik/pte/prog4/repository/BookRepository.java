@@ -13,7 +13,7 @@ public class BookRepository {
     private static final BookRepository BOOK_REPOSITORY = new BookRepository();
     private final IdProvider idProvider;
 
-    private final List<Book> bookList;
+    private final ArrayList<Book> bookList;
 
     public BookRepository() {
         idProvider = IdProvider.getInstance();
@@ -31,9 +31,9 @@ public class BookRepository {
     }
 
     public Book updateBook(Book updatedBook) {
-        Book current = bookList.stream().filter(updatedBook::equals).findFirst().get();
+        Book current = bookList.stream().filter(b -> b.getId().equals(updatedBook.getId())).findFirst().get();
         int i = bookList.indexOf(current);
-        bookList.add(i, updatedBook);
+        bookList.set(i, updatedBook);
         return updatedBook;
     }
 
@@ -51,7 +51,7 @@ public class BookRepository {
         return BOOK_REPOSITORY;
     }
 
-    private List<Book> initList() {
+    private ArrayList<Book> initList() {
         ArrayList<Book> dummyList = new ArrayList<>();
 
         dummyList.add(new Book(
