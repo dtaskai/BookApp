@@ -1,0 +1,7 @@
+hu\mik\pte\prog4\controller\Control.class
+hu\mik\pte\prog4\model\NonFiction.class
+hu\mik\pte\prog4\service\Service.class
+hu\mik\pte\prog4\model\Book.class
+hu\mik\pte\prog4\model\Fiction.class
+hu\mik\pte\prog4\service\BookService.class
+hu\mik\pte\prog4\MainApplication.class
