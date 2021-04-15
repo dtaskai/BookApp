@@ -6,6 +6,7 @@ import lombok.*;
 @ToString
 @EqualsAndHashCode
 @AllArgsConstructor
+@NoArgsConstructor
 public class Book {
     private Long id;
     private String ISBN;
@@ -16,11 +17,10 @@ public class Book {
     private int page;
     private int progress;
     private boolean completed;
-    private Long rating;
+    private Integer rating;
 
 
-
-    public Book(String ISBN, String title, String author, String publisher, String genre, int page, int progress, boolean completed, Long rating) {
+    public Book(String ISBN, String title, String author, String publisher, String genre, int page, int progress, boolean completed, Integer rating) {
         this.ISBN = ISBN;
         this.title = title;
         this.author = author;
