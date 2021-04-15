@@ -22,6 +22,6 @@ public class DeleteBookServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        bookRepository = BookRepository.getInstance();
+        bookRepository = new BookRepository();
     }
 }

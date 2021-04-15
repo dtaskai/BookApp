@@ -26,6 +26,6 @@ public class BookListServlet extends HttpServlet {
     @Override
     public void init() throws ServletException {
         super.init();
-        this.bookRepository = BookRepository.getInstance();
+        this.bookRepository = new BookRepository();
     }
 }
