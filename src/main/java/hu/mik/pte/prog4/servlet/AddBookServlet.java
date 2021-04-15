@@ -4,7 +4,7 @@ import hu.mik.pte.prog4.exception.InvalidISBNException;
 import hu.mik.pte.prog4.model.Book;
 import hu.mik.pte.prog4.repository.BookRepository;
 import hu.mik.pte.prog4.service.BookService;
-import lombok.extern.log4j.Log4j2;
+
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
@@ -31,7 +31,7 @@ public class AddBookServlet extends HttpServlet {
         int page = Integer.parseInt(req.getParameter("page"));
         int progress = Integer.parseInt(req.getParameter("progress"));
         boolean completed = Boolean.parseBoolean(req.getParameter("completed"));
-        Long rating = Long.parseLong(req.getParameter("rating"));
+        int rating = Integer.parseInt(req.getParameter("rating"));
 
         Book book = new Book(ISBN, title, author, publisher, genre, page, progress, completed, rating);
 
@@ -39,14 +39,14 @@ public class AddBookServlet extends HttpServlet {
             throw new InvalidISBNException();
         }
 
-        bookRepository.addBook(book);
+        bookRepository.saveBook(book);
         resp.sendRedirect("list");
     }
 
     @Override
     public void init() throws ServletException {
         super.init();
-        bookRepository = BookRepository.getInstance();
+        bookRepository = new BookRepository();
         bookService = new BookService();
     }
 }
