@@ -2,6 +2,7 @@ package hu.mik.pte.prog4.util;
 
 import java.util.concurrent.atomic.AtomicLong;
 
+@Deprecated
 public class IdProvider {
 
     private static final IdProvider INSTANCE = new IdProvider();
