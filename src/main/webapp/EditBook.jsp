@@ -13,58 +13,59 @@
     <title>Edit Book</title>
 </head>
 <t:page>
-    <h3>Editing... ${book.get().title}</h3>
+    <h3>Editing... ${book.title}</h3>
     <form action="edit" method="post" style="margin-top: 10px">
         <table>
             <tr>
-            <input type="hidden" name="id" value="${book.get().id}">
+                <input type="hidden" name="id" value="${book.id}">
             </tr>
             <tr>
                 <td>ISBN:</td>
-                <td><input name="ISBN" value="${book.get().ISBN}"></td>
+                <td><input name="ISBN" value="${book.ISBN}"></td>
             </tr>
             <tr>
                 <td>Title:</td>
-                <td><input name="title" value="${book.get().title}"></td>
+                <td><input name="title" value="${book.title}"></td>
             </tr>
             <tr>
                 <td>Author:</td>
-                <td><input name="author" value="${book.get().author}"></td>
+                <td><input name="author" value="${book.author}"></td>
             </tr>
             <tr>
                 <td>Publisher</td>
-                <td><input name="publisher" value="${book.get().publisher}"></td>
+                <td><input name="publisher" value="${book.publisher}"></td>
             </tr>
             <tr>
                 <td>Genre</td>
                 <td>
                     <select name="genre" id="genre">
-                        <option value="Fantasy" <c:if test="${book.get().genre == 'Fantasy'}">selected</c:if>>Fantasy</option>
-                        <option value="Horror" <c:if test="${book.get().genre == 'Horror'}">selected</c:if>>Horror</option>
-                        <option value="Adventure" <c:if test="${book.get().genre == 'Adventure'}">selected</c:if>>Adventure</option>
-                        <option value="Science" <c:if test="${book.get().genre == 'Science'}">selected</c:if>>Science</option>
-                        <option value="Art" <c:if test="${book.get().genre == 'Art'}">selected</c:if>>Art</option>
+                        <option value="Fantasy" <c:if test="${book.genre == 'Fantasy'}">selected</c:if>>Fantasy</option>
+                        <option value="Horror" <c:if test="${book.genre == 'Horror'}">selected</c:if>>Horror</option>
+                        <option value="Adventure" <c:if test="${book.genre == 'Adventure'}">selected</c:if>>Adventure
+                        </option>
+                        <option value="Science" <c:if test="${book.genre == 'Science'}">selected</c:if>>Science</option>
+                        <option value="Art" <c:if test="${book.genre == 'Art'}">selected</c:if>>Art</option>
                     </select>
                 </td>
             </tr>
             <tr>
                 <td>Page</td>
-                <td><input name="page" value="${book.get().page}"></td>
+                <td><input name="page" value="${book.page}"></td>
             </tr>
             <tr>
                 <td>Progress</td>
-                <td><input name="progress" value="${book.get().progress}"></td>
+                <td><input name="progress" value="${book.progress}"></td>
             </tr>
             <tr>
                 <td>Rating</td>
                 <td>
                     <select name="rating" id="rating">
-                        <option value="0" <c:if test="${book.get().rating == '0'}">selected</c:if>>0</option>
-                        <option value="1" <c:if test="${book.get().rating == '1'}">selected</c:if>>1</option>
-                        <option value="2" <c:if test="${book.get().rating == '2'}">selected</c:if>>2</option>
-                        <option value="3" <c:if test="${book.get().rating == '3'}">selected</c:if>>3</option>
-                        <option value="4" <c:if test="${book.get().rating == '4'}">selected</c:if>>4</option>
-                        <option value="5" <c:if test="${book.get().rating == '5'}">selected</c:if>>5</option>
+                        <option value="0" <c:if test="${book.rating == '0'}">selected</c:if>>0</option>
+                        <option value="1" <c:if test="${book.rating == '1'}">selected</c:if>>1</option>
+                        <option value="2" <c:if test="${book.rating == '2'}">selected</c:if>>2</option>
+                        <option value="3" <c:if test="${book.rating == '3'}">selected</c:if>>3</option>
+                        <option value="4" <c:if test="${book.rating == '4'}">selected</c:if>>4</option>
+                        <option value="5" <c:if test="${book.rating == '5'}">selected</c:if>>5</option>
                     </select>
                 </td>
             </tr>
