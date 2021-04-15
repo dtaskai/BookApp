@@ -4,9 +4,9 @@ import hu.mik.pte.prog4.model.Book;
 import hu.mik.pte.prog4.repository.BookRepository;
 import hu.mik.pte.prog4.service.BookService;
 
-import java.util.ArrayList;
 import java.util.List;
 
+@Deprecated
 public class Control {
 
     private static Long id = 1L;
@@ -16,7 +16,7 @@ public class Control {
 
     public Control(BookService bookService) {
         this.bookService = bookService;
-        this.bookRepository = BookRepository.getInstance();
+        this.bookRepository = new BookRepository();
     }
 
     public void start() {
@@ -29,5 +29,5 @@ public class Control {
 
     private void createDummyData() {
 
-    };
+    }
 }
