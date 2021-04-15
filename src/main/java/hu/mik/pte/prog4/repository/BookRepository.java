@@ -1,132 +1,121 @@
 package hu.mik.pte.prog4.repository;
 
 import hu.mik.pte.prog4.model.Book;
-import hu.mik.pte.prog4.util.IdProvider;
+import lombok.extern.log4j.Log4j2;
 
+import javax.naming.NamingException;
+import java.sql.*;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.Optional;
 
-public class BookRepository {
-
-    private static final BookRepository BOOK_REPOSITORY = new BookRepository();
-    private final IdProvider idProvider;
-
-    private final ArrayList<Book> bookList;
-
-    public BookRepository() {
-        idProvider = IdProvider.getInstance();
-        bookList = initList();
-    }
+@Log4j2
+public class BookRepository extends AbstractRepository {
 
     public List<Book> listAll() {
-        return new ArrayList<>(bookList);
+        try (Connection con = this.getConnection(); Statement statement = con.createStatement()) {
+            ResultSet rs = statement.executeQuery("SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating FROM book");
+            List<Book> list = new ArrayList<>();
+            while (rs.next()) {
+                list.add(this.mapBook(rs));
+            }
+            return list;
+        } catch (SQLException | NamingException e) {
+            log.error("Something went wrong: " + e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 
-    public Book addBook(Book newBook) {
-        newBook.setId(idProvider.nextId());
-        bookList.add(newBook);
-        return newBook;
+    public Book saveBook(Book newBook) {
+        try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
+                "INSERT INTO book (isbn, title, author, publisher, genre, page, progress, completed, rating) values (?,?,?,?,?,?,?,?,?)",
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            statement.setString(1, newBook.getISBN());
+            statement.setString(2, newBook.getTitle());
+            statement.setString(3, newBook.getAuthor());
+            statement.setString(4, newBook.getPublisher());
+            statement.setString(5, newBook.getGenre());
+            statement.setInt(6, newBook.getPage());
+            statement.setInt(7, newBook.getProgress());
+            statement.setBoolean(8, newBook.isCompleted());
+            statement.setInt(9, newBook.getRating());
+
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            return this.findById(generatedKeys.getLong(1));
+        } catch (SQLException | NamingException e) {
+            log.error("Something went wrong: " + e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 
-    public Book updateBook(Book updatedBook) {
-        Book current = bookList.stream().filter(b -> b.getId().equals(updatedBook.getId())).findFirst().get();
-        int i = bookList.indexOf(current);
-        bookList.set(i, updatedBook);
-        return updatedBook;
+    public Book updateBook(Book bookToUpdate) {
+        try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
+                "UPDATE book SET isbn = ?, title = ?, author = ?, publisher = ?, genre = ?, page = ?, progress = ?, completed = ?, rating = ? WHERE id = ?",
+                Statement.RETURN_GENERATED_KEYS
+        )) {
+            statement.setString(1, bookToUpdate.getISBN());
+            statement.setString(2, bookToUpdate.getTitle());
+            statement.setString(3, bookToUpdate.getAuthor());
+            statement.setString(4, bookToUpdate.getPublisher());
+            statement.setString(5, bookToUpdate.getGenre());
+            statement.setInt(6, bookToUpdate.getPage());
+            statement.setInt(7, bookToUpdate.getProgress());
+            statement.setBoolean(8, bookToUpdate.isCompleted());
+            statement.setInt(9, bookToUpdate.getRating());
+            statement.setLong(10, bookToUpdate.getId());
+
+            statement.executeUpdate();
+            ResultSet generatedKeys = statement.getGeneratedKeys();
+            generatedKeys.next();
+            return this.findById(bookToUpdate.getId());
+        } catch (SQLException | NamingException e) {
+            log.error("Something went wrong: " + e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 
-    public Optional<Book> findById(Long id) {
-        return bookList.stream().filter(b -> Objects.equals(id, b.getId())).findFirst();
+    public Book findById(Long id) {
+        try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
+                "SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating FROM book WHERE id = ?"
+        )) {
+            statement.setLong(1, id);
+            ResultSet rs = statement.executeQuery();
+            rs.next();
+            return this.mapBook(rs);
+        } catch (SQLException | NamingException e) {
+            log.error("Something went wrong: " + e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 
     public boolean delete(Long id) {
-        Optional<Book> book = bookList.stream().filter(b -> Objects.equals(b.getId(), id)).findFirst();
-
-        return book.map(this.bookList::remove).orElse(false);
+        try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
+                "DELETE FROM book WHERE id = ?"
+        )) {
+            statement.setLong(1, id);
+            int rowsAffected = statement.executeUpdate();
+            return rowsAffected > 0;
+        } catch (SQLException | NamingException e) {
+            log.error("Something went wrong: " + e.getMessage(), e);
+            throw new RuntimeException();
+        }
     }
 
-    public static BookRepository getInstance() {
-        return BOOK_REPOSITORY;
+    private Book mapBook(ResultSet rs) throws SQLException {
+        Book book = new Book();
+        book.setId(rs.getLong("id"));
+        book.setISBN(rs.getString("isbn"));
+        book.setTitle(rs.getString("title"));
+        book.setAuthor(rs.getString("author"));
+        book.setPublisher(rs.getString("publisher"));
+        book.setGenre(rs.getString("genre"));
+        book.setPage(rs.getInt("page"));
+        book.setProgress(rs.getInt("progress"));
+        book.setCompleted(rs.getBoolean("completed"));
+        book.setRating(rs.getInt("rating"));
+        return book;
     }
 
-    private ArrayList<Book> initList() {
-        ArrayList<Book> dummyList = new ArrayList<>();
-
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-6381-5268-2",
-                "Pilots Of Dusk",
-                "Shamas Driscoll",
-                "Oculus",
-                "Fantasy",
-                300,
-                0,
-                false,
-                null
-        ));
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-8949-4717-6",
-                "Heir Of The End",
-                "Samara Ellis",
-                "Weilly",
-                "Adventure",
-                450,
-                0,
-                false,
-                null
-        ));
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-6490-3442-2",
-                "Scourge Of History",
-                "Kelise Ferguson",
-                "Papyrus",
-                "Horror",
-                630,
-                0,
-                false,
-                null
-        ));
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-6266-0581-4",
-                "Technology Of The Oceans",
-                "Enzo Mcdermott",
-                "Pyramid",
-                "Science",
-                210,
-                0,
-                false,
-                null
-        ));
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-5844-8747-9",
-                "Bored By Time Travel",
-                "Elana Shah",
-                "Prosper",
-                "Science",
-                540,
-                0,
-                false,
-                null
-        ));
-        dummyList.add(new Book(
-                idProvider.nextId(),
-                "0-3515-0094-4",
-                "Amusing Art",
-                "Hayden Cannon",
-                "Minor",
-                "Art",
-                180,
-                0,
-                false,
-                null
-        ));
-
-        return dummyList;
-    }
 }
