@@ -33,6 +33,7 @@
                 <th>Genre</th>
                 <th>Page</th>
                 <th>Progress</th>
+                <th>Added by</th>
                 <th>Completed</th>
                 <th>Rating</th>
                 <th>Change status</th>
@@ -50,6 +51,7 @@
                     <td><c:out value="${book.genre}"/></td>
                     <td><c:out value="${book.page}"/></td>
                     <td><c:out value="${book.progress}"/></td>
+                    <td><c:out value="${book.addedby}"/></td>
                     <c:choose>
                         <c:when test="${book.completed==true}">
                             <td><c:out value="Finished"/></td>
