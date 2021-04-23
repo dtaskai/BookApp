@@ -1,9 +1,10 @@
 package hu.mik.pte.prog4.servlet;
 
+import hu.mik.pte.prog4.entity.Book;
 import hu.mik.pte.prog4.exception.InvalidISBNException;
-import hu.mik.pte.prog4.model.Book;
 import hu.mik.pte.prog4.repository.BookRepository;
 import hu.mik.pte.prog4.service.BookService;
+import lombok.extern.log4j.Log4j2;
 
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 import java.io.IOException;
 
+@Log4j2
 public class AddBookServlet extends HttpServlet {
 
     private BookRepository bookRepository;
@@ -32,8 +34,9 @@ public class AddBookServlet extends HttpServlet {
         int progress = Integer.parseInt(req.getParameter("progress"));
         boolean completed = Boolean.parseBoolean(req.getParameter("completed"));
         int rating = Integer.parseInt(req.getParameter("rating"));
+        String addedBy = req.getUserPrincipal().getName();
 
-        Book book = new Book(ISBN, title, author, publisher, genre, page, progress, completed, rating);
+        Book book = new Book(ISBN, title, author, publisher, genre, page, progress, completed, rating, addedBy);
 
         if(!bookService.isValidISBN(book)){
             throw new InvalidISBNException();

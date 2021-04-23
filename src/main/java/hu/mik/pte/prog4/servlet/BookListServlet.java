@@ -1,6 +1,6 @@
 package hu.mik.pte.prog4.servlet;
 
-import hu.mik.pte.prog4.model.Book;
+import hu.mik.pte.prog4.entity.Book;
 import hu.mik.pte.prog4.repository.BookRepository;
 
 import javax.servlet.ServletException;

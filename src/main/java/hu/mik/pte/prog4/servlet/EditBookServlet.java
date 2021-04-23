@@ -1,6 +1,6 @@
 package hu.mik.pte.prog4.servlet;
 
-import hu.mik.pte.prog4.model.Book;
+import hu.mik.pte.prog4.entity.Book;
 import hu.mik.pte.prog4.repository.BookRepository;
 
 import javax.servlet.ServletException;
@@ -33,8 +33,9 @@ public class EditBookServlet extends HttpServlet {
         int progress = Integer.parseInt(req.getParameter("progress"));
         boolean completed = Boolean.parseBoolean(req.getParameter("completed"));
         int rating = Integer.parseInt(req.getParameter("rating"));
+        String addedBy = req.getParameter("addedBy");
 
-        Book book = new Book(id, ISBN, title, author, publisher, genre, page, progress, completed, rating);
+        Book book = new Book(id, ISBN, title, author, publisher, genre, page, progress, completed, rating, addedBy);
 
         bookRepository.updateBook(book);
         resp.sendRedirect("list");
