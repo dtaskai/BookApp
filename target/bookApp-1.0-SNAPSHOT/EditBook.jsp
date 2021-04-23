@@ -17,7 +17,7 @@
     <form action="edit" method="post" style="margin-top: 10px">
         <table>
             <tr>
-            <input type="hidden" name="id" value="${book.id}">
+                <input type="hidden" name="id" value="${book.id}">
             </tr>
             <tr>
                 <td>ISBN:</td>
@@ -41,7 +41,8 @@
                     <select name="genre" id="genre">
                         <option value="Fantasy" <c:if test="${book.genre == 'Fantasy'}">selected</c:if>>Fantasy</option>
                         <option value="Horror" <c:if test="${book.genre == 'Horror'}">selected</c:if>>Horror</option>
-                        <option value="Adventure" <c:if test="${book.genre == 'Adventure'}">selected</c:if>>Adventure</option>
+                        <option value="Adventure" <c:if test="${book.genre == 'Adventure'}">selected</c:if>>Adventure
+                        </option>
                         <option value="Science" <c:if test="${book.genre == 'Science'}">selected</c:if>>Science</option>
                         <option value="Art" <c:if test="${book.genre == 'Art'}">selected</c:if>>Art</option>
                     </select>

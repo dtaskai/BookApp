@@ -9,6 +9,11 @@
         <exception-type>hu.mik.pte.prog4.exception.InvalidISBNException</exception-type>
         <location>/ErrorPage.jsp</location>
     </error-page>
+    
+    <error-page>
+        <error-code>403</error-code>
+        <location>/InvalidRoles.jsp</location>
+    </error-page>
 
     <servlet>
         <servlet-name>HomePageServlet</servlet-name>
@@ -39,6 +44,11 @@
         <servlet-name>ModifyCompletionServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.ModifyCompletionServlet</servlet-class>
     </servlet>
+
+    <servlet>
+        <servlet-name>LogoutServlet</servlet-name>
+        <servlet-class>hu.mik.pte.prog4.servlet.LogoutServlet</servlet-class>
+    </servlet>
     
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
@@ -47,27 +57,76 @@
     
     <servlet-mapping>
         <servlet-name>BookListServlet</servlet-name>
-        <url-pattern>list</url-pattern>
+        <url-pattern>/list</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
         <servlet-name>AddBookServlet</servlet-name>
-        <url-pattern>add</url-pattern>
+        <url-pattern>/add</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
         <servlet-name>EditBookServlet</servlet-name>
-        <url-pattern>edit</url-pattern>
+        <url-pattern>/edit</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
         <servlet-name>DeleteBookServlet</servlet-name>
-        <url-pattern>delete</url-pattern>
+        <url-pattern>/delete</url-pattern>
     </servlet-mapping>
     
     <servlet-mapping>
         <servlet-name>ModifyCompletionServlet</servlet-name>
-        <url-pattern>change</url-pattern>
+        <url-pattern>/change</url-pattern>
     </servlet-mapping>
+
+    <servlet-mapping>
+        <servlet-name>LogoutServlet</servlet-name>
+        <url-pattern>/logout</url-pattern>
+    </servlet-mapping>
+
+    <listener>
+        <listener-class>hu.mik.pte.prog4.listener.AppServletContextListener</listener-class>
+    </listener>
+
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>WebAppContent</web-resource-name>
+            <url-pattern>/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>user</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>API</web-resource-name>
+            <url-pattern>/api/*</url-pattern>
+        </web-resource-collection>
+        <auth-constraint>
+            <role-name>api</role-name>
+        </auth-constraint>
+    </security-constraint>
+    <security-constraint>
+        <web-resource-collection>
+            <web-resource-name>Logout</web-resource-name>
+            <url-pattern>/logout</url-pattern>
+        </web-resource-collection>
+    </security-constraint>
+
+    <security-role>
+        <role-name>user</role-name>
+    </security-role>
+    <security-role>
+        <role-name>api</role-name>
+    </security-role>
+
+    <login-config>
+        <auth-method>FORM</auth-method>
+        <form-login-config>
+            <form-login-page>/LoginPage.jsp</form-login-page>
+            <form-error-page>/LoginFailedPage.jsp</form-error-page>
+        </form-login-config>
+    </login-config>
 
 </web-app>

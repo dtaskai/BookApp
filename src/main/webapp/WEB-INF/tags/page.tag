@@ -13,6 +13,9 @@
     <div>
         <a href="list">Book list</a>
     </div>
+    <div>
+        <a href="logout">Logout</a>
+    </div>
 </div>
 <div>
     <jsp:doBody/>
