@@ -8,7 +8,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public abstract class AbstractRepository {
-    private static final String JNDI_DATASOURCE_NAME = "java:/BookappDS";
+    private static final String JNDI_DATASOURCE_NAME = "jdbc/sample";
+    private static final String ROOT_CONTEXT = "java:comp/env";
 
     private static DataSource dataSource;
 
@@ -18,8 +19,9 @@ public abstract class AbstractRepository {
 
     private static DataSource getDataSource() throws NamingException {
         if (dataSource == null) {
-            Context initCtx = new InitialContext();
-            dataSource = (DataSource) initCtx.lookup(JNDI_DATASOURCE_NAME);
+            InitialContext initialContext = new InitialContext();
+            Context context = (Context) initialContext.lookup(ROOT_CONTEXT);
+            dataSource = (DataSource) context.lookup(JNDI_DATASOURCE_NAME);
         }
         return dataSource;
     }
