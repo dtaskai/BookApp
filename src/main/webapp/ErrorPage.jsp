@@ -11,7 +11,7 @@
     <title>Error</title>
 </head>
 <body>
-<h2>Something went wrong, try again later!</h2>
+<h2>Invalid ISBN!</h2>
 </body>
 </html>
 
