@@ -9,7 +9,8 @@ CREATE TABLE book
     page      integer,
     progress  integer,
     completed boolean      NOT NULL,
-    rating    integer
+    rating    integer,
+    addedby   varchar(255)
 );
 
 insert into book (ISBN, TITLE, AUTHOR, PUBLISHER, GENRE, PAGE, PROGRESS, COMPLETED, RATING)
