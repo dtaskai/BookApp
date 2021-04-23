@@ -1,6 +1,6 @@
 package hu.mik.pte.prog4.repository;
 
-import hu.mik.pte.prog4.model.Book;
+import hu.mik.pte.prog4.entity.Book;
 import lombok.extern.log4j.Log4j2;
 
 import javax.naming.NamingException;
@@ -13,7 +13,7 @@ public class BookRepository extends AbstractRepository {
 
     public List<Book> listAll() {
         try (Connection con = this.getConnection(); Statement statement = con.createStatement()) {
-            ResultSet rs = statement.executeQuery("SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating FROM book");
+            ResultSet rs = statement.executeQuery("SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating, addedby FROM book");
             List<Book> list = new ArrayList<>();
             while (rs.next()) {
                 list.add(this.mapBook(rs));
@@ -27,7 +27,7 @@ public class BookRepository extends AbstractRepository {
 
     public Book saveBook(Book newBook) {
         try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
-                "INSERT INTO book (isbn, title, author, publisher, genre, page, progress, completed, rating) values (?,?,?,?,?,?,?,?,?)",
+                "INSERT INTO book (isbn, title, author, publisher, genre, page, progress, completed, rating, addedby) values (?,?,?,?,?,?,?,?,?,?)",
                 Statement.RETURN_GENERATED_KEYS
         )) {
             statement.setString(1, newBook.getISBN());
@@ -39,6 +39,7 @@ public class BookRepository extends AbstractRepository {
             statement.setInt(7, newBook.getProgress());
             statement.setBoolean(8, newBook.isCompleted());
             statement.setInt(9, newBook.getRating());
+            statement.setString(10, newBook.getAddedby());
 
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -78,7 +79,7 @@ public class BookRepository extends AbstractRepository {
 
     public Book findById(Long id) {
         try (Connection con = this.getConnection(); PreparedStatement statement = con.prepareStatement(
-                "SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating FROM book WHERE id = ?"
+                "SELECT id, isbn, title, author, publisher, genre, page, progress, completed, rating, addedby FROM book WHERE id = ?"
         )) {
             statement.setLong(1, id);
             ResultSet rs = statement.executeQuery();
@@ -115,6 +116,7 @@ public class BookRepository extends AbstractRepository {
         book.setProgress(rs.getInt("progress"));
         book.setCompleted(rs.getBoolean("completed"));
         book.setRating(rs.getInt("rating"));
+        book.setAddedby(rs.getString("addedby"));
         return book;
     }
 
