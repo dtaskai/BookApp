@@ -51,7 +51,7 @@
                     <td><c:out value="${book.genre}"/></td>
                     <td><c:out value="${book.page}"/></td>
                     <td><c:out value="${book.progress}"/></td>
-                    <td><c:out value="${book.addedby}"/></td>
+                    <td><c:out value="${book.addedBy}"/></td>
                     <c:choose>
                         <c:when test="${book.completed==true}">
                             <td><c:out value="Finished"/></td>
