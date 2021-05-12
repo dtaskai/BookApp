@@ -2,9 +2,9 @@ package hu.mik.pte.prog4.entity;
 
 import lombok.*;
 
-@Data
-@ToString
-@EqualsAndHashCode
+@Getter
+@Setter
+@Builder
 @AllArgsConstructor
 @NoArgsConstructor
 public class Book {
@@ -18,19 +18,5 @@ public class Book {
     private int progress;
     private boolean completed;
     private Integer rating;
-    private String addedby;
-
-
-    public Book(String ISBN, String title, String author, String publisher, String genre, int page, int progress, boolean completed, Integer rating, String addedby) {
-        this.ISBN = ISBN;
-        this.title = title;
-        this.author = author;
-        this.publisher = publisher;
-        this.genre = genre;
-        this.page = page;
-        this.progress = progress;
-        this.completed = completed;
-        this.rating = rating;
-        this.addedby = addedby;
-    }
+    private String addedBy;
 }
