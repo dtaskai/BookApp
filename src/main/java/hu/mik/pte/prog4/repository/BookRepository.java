@@ -39,7 +39,7 @@ public class BookRepository extends AbstractRepository {
             statement.setInt(7, newBook.getProgress());
             statement.setBoolean(8, newBook.isCompleted());
             statement.setInt(9, newBook.getRating());
-            statement.setString(10, newBook.getAddedby());
+            statement.setString(10, newBook.getAddedBy());
 
             statement.executeUpdate();
             ResultSet generatedKeys = statement.getGeneratedKeys();
@@ -116,7 +116,7 @@ public class BookRepository extends AbstractRepository {
         book.setProgress(rs.getInt("progress"));
         book.setCompleted(rs.getBoolean("completed"));
         book.setRating(rs.getInt("rating"));
-        book.setAddedby(rs.getString("addedby"));
+        book.setAddedBy(rs.getString("addedby"));
         return book;
     }
 
