@@ -19,6 +19,13 @@ public class AddBookServlet extends HttpServlet {
     private BookService bookService;
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        bookRepository = new BookRepository();
+        bookService = new BookService();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         req.getRequestDispatcher("/AddBook.jsp").forward(req, resp);
     }
@@ -36,7 +43,7 @@ public class AddBookServlet extends HttpServlet {
         int rating = Integer.parseInt(req.getParameter("rating"));
         String addedBy = req.getUserPrincipal().getName();
 
-        Book book = new Book(ISBN, title, author, publisher, genre, page, progress, completed, rating, addedBy);
+        Book book = Book.builder().ISBN(ISBN).title(title).author(author).publisher(publisher).genre(genre).page(page).progress(progress).completed(completed).rating(rating).addedBy(addedBy).build();
 
         if(!bookService.isValidISBN(book)){
             throw new InvalidISBNException();
@@ -46,10 +53,4 @@ public class AddBookServlet extends HttpServlet {
         resp.sendRedirect("list");
     }
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        bookRepository = new BookRepository();
-        bookService = new BookService();
-    }
 }

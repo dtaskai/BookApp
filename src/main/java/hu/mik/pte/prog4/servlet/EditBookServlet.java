@@ -14,6 +14,12 @@ public class EditBookServlet extends HttpServlet {
     private BookRepository bookRepository;
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        bookRepository = new BookRepository();
+    }
+
+    @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.valueOf(req.getParameter("id"));
         Book book = bookRepository.findById(id);
@@ -39,11 +45,5 @@ public class EditBookServlet extends HttpServlet {
 
         bookRepository.updateBook(book);
         resp.sendRedirect("list");
-    }
-
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        bookRepository = new BookRepository();
     }
 }

@@ -13,15 +13,16 @@ public class DeleteBookServlet extends HttpServlet {
     private BookRepository bookRepository;
 
     @Override
+    public void init() throws ServletException {
+        super.init();
+        bookRepository = new BookRepository();
+    }
+
+    @Override
     protected void doPost(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
         Long id = Long.valueOf(req.getParameter("id"));
         bookRepository.delete(id);
         resp.sendRedirect("list");
     }
 
-    @Override
-    public void init() throws ServletException {
-        super.init();
-        bookRepository = new BookRepository();
-    }
 }
