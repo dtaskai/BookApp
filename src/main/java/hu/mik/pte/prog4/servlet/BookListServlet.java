@@ -16,16 +16,16 @@ public class BookListServlet extends HttpServlet {
     private BookRepository bookRepository;
 
     @Override
-    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        List<Book> books = new ArrayList<>();
-        books.addAll(bookRepository.listAll());
-        req.setAttribute("books",books);
-        req.getRequestDispatcher("/BookList.jsp").forward(req, resp);
-    }
-
-    @Override
     public void init() throws ServletException {
         super.init();
         this.bookRepository = new BookRepository();
     }
+
+    @Override
+    protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
+        List<Book> books = new ArrayList<>(bookRepository.listAll());
+        req.setAttribute("books", books);
+        req.getRequestDispatcher("/BookList.jsp").forward(req, resp);
+    }
+
 }
