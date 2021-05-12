@@ -6,6 +6,11 @@
          version="3.1">
 
     <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/GenericError.jsp</location>
+    </error-page>
+
+    <error-page>
         <exception-type>hu.mik.pte.prog4.exception.InvalidISBNException</exception-type>
         <location>/ErrorPage.jsp</location>
     </error-page>

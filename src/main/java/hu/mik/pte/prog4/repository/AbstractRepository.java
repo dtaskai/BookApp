@@ -8,7 +8,7 @@ import java.sql.Connection;
 import java.sql.SQLException;
 
 public abstract class AbstractRepository {
-    private static final String JNDI_DATASOURCE_NAME = "jdbc/sample";
+    private static final String JNDI_DATASOURCE_NAME = "jdbc/bookApp";
     private static final String ROOT_CONTEXT = "java:comp/env";
 
     private static DataSource dataSource;
