@@ -6,10 +6,15 @@
          version="3.1">
 
     <error-page>
+        <exception-type>java.lang.Throwable</exception-type>
+        <location>/GenericError.jsp</location>
+    </error-page>
+
+    <error-page>
         <exception-type>hu.mik.pte.prog4.exception.InvalidISBNException</exception-type>
         <location>/ErrorPage.jsp</location>
     </error-page>
-    
+
     <error-page>
         <error-code>403</error-code>
         <location>/InvalidRoles.jsp</location>
@@ -19,7 +24,7 @@
         <servlet-name>HomePageServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.HomePageServlet</servlet-class>
     </servlet>
-    
+
     <servlet>
         <servlet-name>BookListServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.BookListServlet</servlet-class>
@@ -34,12 +39,12 @@
         <servlet-name>EditBookServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.EditBookServlet</servlet-class>
     </servlet>
-    
+
     <servlet>
         <servlet-name>DeleteBookServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.DeleteBookServlet</servlet-class>
     </servlet>
-    
+
     <servlet>
         <servlet-name>ModifyCompletionServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.ModifyCompletionServlet</servlet-class>
@@ -49,12 +54,12 @@
         <servlet-name>LogoutServlet</servlet-name>
         <servlet-class>hu.mik.pte.prog4.servlet.LogoutServlet</servlet-class>
     </servlet>
-    
+
     <servlet-mapping>
         <servlet-name>HomePageServlet</servlet-name>
         <url-pattern>/</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>BookListServlet</servlet-name>
         <url-pattern>/list</url-pattern>
@@ -69,12 +74,12 @@
         <servlet-name>EditBookServlet</servlet-name>
         <url-pattern>/edit</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>DeleteBookServlet</servlet-name>
         <url-pattern>/delete</url-pattern>
     </servlet-mapping>
-    
+
     <servlet-mapping>
         <servlet-name>ModifyCompletionServlet</servlet-name>
         <url-pattern>/change</url-pattern>

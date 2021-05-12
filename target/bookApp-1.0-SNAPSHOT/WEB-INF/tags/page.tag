@@ -8,13 +8,13 @@
     <h1>Welcome to the Book-App!</h1>
     <h2>Menu</h2>
     <div>
-        <a href="add">Add a new book</a>
+        <a href="${pageContext.request.contextPath}/add">Add a new book</a>
     </div>
     <div>
-        <a href="list">Book list</a>
+        <a href="${pageContext.request.contextPath}/list">Book list</a>
     </div>
     <div>
-        <a href="logout">Logout</a>
+        <a href="${pageContext.request.contextPath}/logout">Logout</a>
     </div>
 </div>
 <div>

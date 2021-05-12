@@ -11,6 +11,6 @@
     <title>Login Failed</title>
 </head>
 <body>
-    <h3>Wrong username or/and password!</h3>
+<h3>Wrong username or/and password!</h3>
 </body>
 </html>
